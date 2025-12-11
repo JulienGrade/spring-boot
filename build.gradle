@@ -25,7 +25,16 @@ defaultTasks 'build'
 allprojects {
 	group = "org.springframework.boot"
 }
+plugins {
+  id "org.sonarqube" version "7.2.0.6526"
+}
 
+sonar {
+  properties {
+    property "sonar.projectKey", "JulienGrade_spring-boot"
+    property "sonar.organization", "juliengrade"
+  }
+}
 subprojects {
 	apply plugin: "org.springframework.boot.conventions"
 
