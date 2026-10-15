@@ -3,7 +3,8 @@
  */
 
 plugins {
-	id "base"
+    id "base"
+    id "org.sonarqube" version "7.5.0.8588"
 }
 
 description = "Spring Boot Build"
@@ -33,4 +34,11 @@ subprojects {
 	configurations.all {
 		resolutionStrategy.cacheChangingModulesFor 0, "minutes"
 	}
+}
+sonar {
+    properties {
+        property "sonar.projectKey", "JulienGrade_spring-boot2"
+        property "sonar.organization", "juliengrade"
+        property "sonar.host.url", "https://sonarcloud.io"
+    }
 }
