@@ -1,3 +1,4 @@
+
 /*
  * Copyright 2012-present the original author or authors.
  */
@@ -12,33 +13,44 @@ description = "Spring Boot Build"
 defaultTasks 'build'
 
 allprojects {
-	group = "org.springframework.boot"
+    group = "org.springframework.boot"
 }
 
 subprojects {
-	apply plugin: "org.springframework.boot.conventions"
+    apply plugin: "org.springframework.boot.conventions"
 
-	repositories {
-		mavenCentral()
-		maven {
-			name = "Shibboleth Releases"
-			url = "https://build.shibboleth.net/nexus/content/repositories/releases"
-			content {
-				includeGroup "org.opensaml"
-				includeGroup "net.shibboleth"
-			}
-		}
-		spring.mavenRepositories()
-	}
+    repositories {
+        mavenCentral()
+        maven {
+            name = "Shibboleth Releases"
+            url = "https://build.shibboleth.net/nexus/content/repositories/releases"
+            content {
+                includeGroup "org.opensaml"
+                includeGroup "net.shibboleth"
+            }
+        }
+        spring.mavenRepositories()
+    }
 
-	configurations.all {
-		resolutionStrategy.cacheChangingModulesFor 0, "minutes"
-	}
+    configurations.all {
+        resolutionStrategy.cacheChangingModulesFor 0, "minutes"
+    }
 }
+
+// Configuration SonarQube Cloud
 sonar {
     properties {
         property "sonar.projectKey", "JulienGrade_spring-boot2"
         property "sonar.organization", "juliengrade"
         property "sonar.host.url", "https://sonarcloud.io"
+    }
+}
+
+// Limiter l'analyse au module principal Spring Boot
+subprojects {
+    if (path != ":core:spring-boot") {
+        sonar {
+            skipProject = true
+        }
     }
 }
