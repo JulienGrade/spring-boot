@@ -33,10 +33,15 @@ jobs:
           ./gradlew :core:spring-boot:classes \
             --no-daemon --stacktrace
 
+      - name: Verifier les classes compilees
+        run: |
+          test -d core/spring-boot/build/classes/java/main
+          echo "Classes Java disponibles"
+
       - name: Analyser avec SonarQube
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           ./gradlew sonar \
             -Dsonar.gradle.skipCompile=true \
-            --no-daemon --stacktrace
+            --no-daemon --stacktrace --info
