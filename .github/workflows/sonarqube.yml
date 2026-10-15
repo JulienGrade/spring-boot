@@ -39,6 +39,4 @@ jobs:
         run: |
           ./gradlew sonar \
             -Dsonar.gradle.skipCompile=true \
-            -Dsonar.sources=core/spring-boot/src/main/java \
-            -Dsonar.java.binaries=core/spring-boot/build/classes/java/main \
             --no-daemon --stacktrace
