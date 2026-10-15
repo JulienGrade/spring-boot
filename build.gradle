@@ -43,14 +43,23 @@ sonar {
         property "sonar.projectKey", "JulienGrade_spring-boot2"
         property "sonar.organization", "juliengrade"
         property "sonar.host.url", "https://sonarcloud.io"
+
+        // Analyser uniquement le module principal
+        property "sonar.sources", "core/spring-boot/src/main/java"
+
+        // Classes Java compilees
+        property "sonar.java.binaries",
+                "core/spring-boot/build/classes/java/main"
+
+        // Ne pas analyser les tests pour ce premier essai
+        property "sonar.tests", ""
+        property "sonar.exclusions", "**/build/**"
     }
 }
 
-// Limiter l'analyse au module principal Spring Boot
+// Desactiver l'analyse des autres modules Gradle
 subprojects {
-    if (path != ":core:spring-boot") {
-        sonar {
-            skipProject = true
-        }
+    sonar {
+        skipProject = true
     }
 }
